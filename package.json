@@ -1,0 +1,14 @@
+{
+  "name": "openai-vertex-proxy",
+  "version": "1.0.0",
+  "description": "Google Vertex AI to OpenAI Proxy for Cloudflare Workers",
+  "main": "src/worker.mjs",
+  "type": "module",
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev"
+  },
+  "devDependencies": {
+    "wrangler": "^3.109.0"
+  }
+}
