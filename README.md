@@ -4,6 +4,16 @@
 
 本版本相比于传统 AI Studio 代理，针对 Vertex AI 及最新 OpenAI 思考机制进行了深度适配，完美支持 `reasoning_content` 及 `reasoning_effort`。
 
+---
+
+## 🚀 一键部署到 Cloudflare (最推荐)
+
+由于项目针对 Cloudflare Workers 环境进行了 100% 深度适配，您不需要任何本地开发环境。只需点击下方的绿色按钮，即可一键将该代理完美部署到您自己的 Cloudflare 账户：
+
+[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/khc8655/openai-vertex-proxy)
+
+---
+
 ## 🌟 特性
 
 - **首发对齐 `reasoning_content`**：非流式和流式（SSE）中完美剥离出 Google 的原生思考过程，并输出为标准 OpenAI 格式的 `reasoning_content` 字段。完美兼容 OpenWebUI、Dify 等第三方客户端。
@@ -14,15 +24,15 @@
 - **静态 `/v1/models` 端点**：极速本地返回静态支持的模型列表，0ms 时延。
 - **完全兼容 Cloudflare Workers**：支持通过 Wrangler 命令行或一键部署按钮进行部署。
 
-## ⚡ 部署方式
+## ⚡ 备用部署方式
 
-### 方式一：使用 Cloudflare Workers Playground (最简方式)
+### 方式二：使用 Cloudflare Workers Playground (最简方式)
 
 1. 打开 [Cloudflare Workers Playground](https://workers.cloudflare.com/playground)。
 2. 将本地 `src/worker.mjs` 的全部内容复制，粘贴并替换 Playground 里的代码。
 3. 点击页面右上角的 **Deploy** 按钮当场完成一键部署。
 
-### 方式二：命令行部署 (Wrangler CLI)
+### 方式三：命令行部署 (Wrangler CLI)
 
 在本项目根目录下，执行以下命令：
 ```bash
