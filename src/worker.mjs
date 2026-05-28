@@ -131,7 +131,7 @@ async function handleCompletions (req, apiKey) {
   }
 
   const TASK = req.stream ? "streamGenerateContent" : "generateContent";
-  let url = `https://${host}/${API_VERSION}/projects/${PROJECT_ID}/locations/${location}/publishers/google/models/${model}:${TASK}`;
+  let url = `https://${host}/${API_VERSION}/projects/${PROJECT_ID}/locations/${location}/publishers/google/models/${model}` + ":" + TASK;
   if (req.stream) { url += "?alt=sse"; }
 
   const response = await fetch(url, {
