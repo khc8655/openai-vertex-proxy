@@ -53,16 +53,14 @@ const fixCors = ({ headers, status, statusText }) => {
 const handleOPTIONS = async () => {
   return new Response(null, {
     headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "*",
-      "Access-Control-Allow-Headers": "*",
+      "Access-Control-Allow-Origin", "*",
+      "Access-Control-Allow-Methods", "*",
+      "Access-Control-Allow-Headers", "*",
     }
   });
 };
 
 const PROJECT_ID = "heroic-diode-497507-s8";
-const LOCATION = "us-central1";
-const BASE_URL = `https://${LOCATION}-aiplatform.googleapis.com`;
 const API_VERSION = "v1";
 
 const makeHeaders = (apiKey, more) => ({
@@ -103,6 +101,19 @@ async function handleCompletions (req, apiKey) {
     model = DEFAULT_MODEL;
   }
 
+  // 动态匹配模型归属的 location 区域与 host 终点
+  let location, host;
+  if (model.startsWith("gemini-3") || model.startsWith("gemma-3")) {
+    location = "global";
+    host = "aiplatform.googleapis.com";
+  } else if (model.startsWith("imagen")) {
+    location = "us-central1";
+    host = "us-central1-aiplatform.googleapis.com";
+  } else {
+    location = "us-central1";
+    host = "us-central1-aiplatform.googleapis.com";
+  }
+
   let isV3 = model.startsWith("gemini-3");
   let body = await transformRequest(req, isV3);
   
@@ -120,7 +131,7 @@ async function handleCompletions (req, apiKey) {
   }
 
   const TASK = req.stream ? "streamGenerateContent" : "generateContent";
-  let url = `${BASE_URL}/${API_VERSION}/projects/${PROJECT_ID}/locations/${LOCATION}/publishers/google/models/${model}:${TASK}`;
+  let url = `https://${host}/${API_VERSION}/projects/${PROJECT_ID}/locations/${location}/publishers/google/models/${model}:${TASK}`;
   if (req.stream) { url += "?alt=sse"; }
 
   const response = await fetch(url, {
